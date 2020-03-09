@@ -83,7 +83,7 @@ def find_canonical(item, graph, name):
 lookup = CountryDict({})
 traceback = CountryDict({})
 
-for _, item in graph.items():
+for item in graph.values():
     key, value = find_canonical(item, graph, item['names']['en-GB'])
     lookup[key] = value
     traceback[key] = key
@@ -114,7 +114,7 @@ def get_closest(search_term):
 
 def get_postage(country):
     if country is None or country in uk_islands:
-        return 'United Kingdom'
+        return UK
     if country in europe:
         return 'Europe'
     return 'rest of world'
