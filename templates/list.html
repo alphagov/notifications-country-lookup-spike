@@ -1,0 +1,15 @@
+<style type="text/css">*{font-family: -apple-system, sans-serif; font-size: 36px;} ul {margin: 1em 3em}</style>
+<ul>
+  {% for country, synonyms in country_list.items() %}
+    <li>
+      {{ country }}
+      {% if synonyms %}
+        <ul>
+          {% for synonym in synonyms %}
+            <li>{{ synonym }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
