@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import json
 import string
-import sys
+
+from flask import Flask, render_template, request
 
 
 def make_key(original_key):
@@ -126,14 +127,9 @@ def hello():
             result = f'⚠️ No country matches {search_term}'
             postage = ''
 
-    return (
-        '<style type="text/css">*{font-family: -apple-system, sans-serif; font-size: 36px; margin: 1em 0} form, p {margin: 1em 3em}</style>'
-        f'<form method="get">'
-        f'   <label for="search_term">Search for a country</label>'
-        f'   <input type="text" name="search_term" id="search_term" value="{search_term}">'
-        f'   <button type="submit">Search</button>'
-        f'</form>'
-        f'<p>{result} {postage}</p>'
-        f'<p></p>'
+    return render_template(
+        'index.html',
+        search_term=search_term,
+        result=result,
+        postage=postage,
     )
->>>>>>> Fix for PaaS:application.py
