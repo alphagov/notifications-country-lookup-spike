@@ -20,8 +20,7 @@ MarkupSafe==1.1.1
 mistune==0.8.4
 monotonic==1.5
 more-itertools==8.2.0
-notification-utils==0.3.dev6
-notifications-utils==36.6.1
+git+https://github.com/alphagov/notifications-utils.git@36.6.1#egg=notifications-utils==36.6.1
 orderedset==2.0.1
 packaging==20.3
 phonenumbers==8.11.2
