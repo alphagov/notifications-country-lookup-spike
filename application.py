@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from data import get_closest, get_postage, lookup, make_key
+from data import CountryDict, get_closest, get_postage, lookup, traceback
 
 
 app = Flask(__name__)
@@ -36,10 +36,10 @@ def country_list():
         for canonical in set(lookup.values())
     ])
     synonyms = {
-        country: sorted([
-            key for key, value in lookup.items()
-            if value == country and key != make_key(country)
-        ])
+        country: [
+            traceback[key] for key, value in lookup.items()
+            if value == country and key != CountryDict.make_key(country)
+        ]
         for country in country_list
     }
     return render_template(
