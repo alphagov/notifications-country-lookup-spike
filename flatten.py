@@ -104,12 +104,36 @@ def get_postage(country, europe):
         return 'UK'
     if make_key(country) in europe:
         return 'Europe'
-    return 'World'
+    return 'rest of world'
 
 
-for test_item in [sys.argv[1]]:
-    try:
-        closest = get_closest(test_item, lookup)
-        print(test_item.ljust(30), str(closest).ljust(20), get_postage(closest, europe))
-    except IndexError:
-        print(test_item.ljust(30), "---".ljust(20), '---')
+app = Flask(__name__)
+
+
+@app.route('/')
+def hello():
+    search_term = request.args.get('search_term', '')
+    result = ''
+    postage = ''
+
+    if search_term:
+        try:
+            closest = get_closest(search_term, lookup)
+            postage = get_postage(closest, europe)
+            postage = f'({postage} postage zone)'
+            result = f'✅ {closest}'
+        except IndexError:
+            result = f'⚠️ No country matches {search_term}'
+            postage = ''
+
+    return (
+        '<style type="text/css">*{font-family: -apple-system, sans-serif; font-size: 36px; margin: 1em 0} form, p {margin: 1em 3em}</style>'
+        f'<form method="get">'
+        f'   <label for="search_term">Search for a country</label>'
+        f'   <input type="text" name="search_term" id="search_term" value="{search_term}">'
+        f'   <button type="submit">Search</button>'
+        f'</form>'
+        f'<p>{result} {postage}</p>'
+        f'<p></p>'
+    )
+>>>>>>> Fix for PaaS:application.py
