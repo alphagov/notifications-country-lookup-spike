@@ -55,6 +55,15 @@ with open(
     uk = [line.strip() for line in uk.readlines()]
 
 
+with open(
+    'uk-islands.txt'
+) as uk_islands:
+    uk_islands = [line.strip() for line in uk_islands.readlines()]
+
+
+uk = set(uk + uk_islands)
+
+
 def find_canonical(item, graph, name):
     if item['meta']['canonical']:
         if item['names']['en-GB'] == 'United Kingdom':
@@ -78,6 +87,9 @@ for _, item in graph.items():
 for synonym in uk:
     lookup[make_key(synonym)] = None
 
+for synonym in uk_islands:
+    lookup[make_key(synonym)] = synonym
+
 for synonym, mapping in synonyms.items():
     assert make_key(mapping) in lookup.keys()
     lookup[make_key(synonym)] = mapping
@@ -100,7 +112,7 @@ def get_closest(search_term):
 
 
 def get_postage(country):
-    if country is None:
+    if country is None or country in uk_islands:
         return 'United Kingdom'
     if make_key(country) in europe:
         return 'Europe'
