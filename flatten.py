@@ -36,7 +36,6 @@ def normalise_whitespace(value):
 
 
 with open(
-    'node_modules/govuk-country-and-territory-autocomplete/dist/'
     'location-autocomplete-graph.json'
 ) as graph:
     graph = json.load(graph)
@@ -90,6 +89,9 @@ for synonym, mapping in synonyms.items():
 def get_closest(search_term, lookup_dict):
 
     search_term = make_key(search_term)
+
+    if lookup.get(search_term, False) is None:
+        return None
 
     if lookup.get(search_term):
         return lookup.get(search_term)
