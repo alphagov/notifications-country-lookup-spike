@@ -28,7 +28,7 @@ pluggy==0.13.1
 py==1.8.1
 pyasn1==0.4.8
 pyparsing==2.4.6
-PyPDF2==1.26.0
+PyPDF2==1.27.9
 pytest==5.3.5
 python-dateutil==2.8.0
 python-json-logger==0.1.11
